@@ -284,18 +284,5 @@ public class JsonToTextConverter
         }
     }
 
-    // Sanitizes quiz markdown by removing standalone bracketed instruction lines
-    private static string SanitizeQuizMarkdown(string md)
-    {
-        if (string.IsNullOrEmpty(md))
-            return md;
-
-        // Remove lines like: [Select all that apply], [Select one], [Select all], ...
-        md = Regex.Replace(md, "(?im)^\s*\[.*?(select.*?apply|select\s*one|select).*?\]\s*$", "", RegexOptions.Multiline);
-
-        // Also remove any empty lines left behind
-        md = Regex.Replace(md, "(?m)^[ \t]*\r?\n", "");
-
-        return md.Trim();
-    }
+    // Sanitizer removed — no-op
 }
