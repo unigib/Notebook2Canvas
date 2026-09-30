@@ -10,7 +10,7 @@ public class JsonToTextConverter
     /// <summary>
     /// Converts a JSON file into a plain text file by extracting all string values.
     /// </summary>
-    public StringBuilder Convert(string jsonFilePath, string outputTextFilePath)
+    public StringBuilder Convert(string jsonFilePath)
     {
         if (!File.Exists(jsonFilePath))
             throw new FileNotFoundException("JSON file not found.", jsonFilePath);
@@ -36,24 +36,31 @@ public class JsonToTextConverter
     {
         int QuestionCount = 0;
 
-        // The first step is to get to the array of questions
-        JsonArray qArray = node.AsArray();
+        JsonArray qArray = FindQuestionsArray(node);
+        if (qArray == null)
+        {
+            Console.WriteLine("No questions array found.");
+            return;
+        }
 
         int nQuestions = qArray.Count;
         Console.WriteLine("Number of questions: " + nQuestions);
 
 
-        foreach (JsonObject item in qArray)
+        foreach (JsonNode itemNode in qArray)
         {
+            if (!(itemNode is JsonObject item))
+                continue;
 
             JsonObject questionItem = item;
 
             Console.WriteLine("Name: " + item.ToString());
 
-            String question = questionItem["question"].ToString();
-            String hint = questionItem["hint"].ToString();
+            String question = GetString(questionItem, "question");
+            String hint = GetString(questionItem, "hint");
+            String mcqType = GetString(questionItem, "type");
 
-            JsonArray questions = item["answerOptions"].AsArray();
+            JsonArray questions = FindAnswerOptions(questionItem);
 
             QuestionCount++;
 
@@ -62,48 +69,190 @@ public class JsonToTextConverter
             sb.AppendLine("Points: 1");
             int qNumber = 1;
             sb.AppendLine(qNumber + ". " + question);
-            sb.AppendLine("... " + hint);
 
-            // Ascii here 
-            int num = 65;
-            char c = 'a';
-
-            foreach (var q in questions)
+            // If more than one option is marked correct, indicate this is a multiple-answer question
+            int correctCount = 0;
+            if (questions != null)
             {
-
-
-                if (q is JsonObject jObj)
+                foreach (var q in questions)
                 {
-
-                    Boolean isCorrect = jObj["isCorrect"].ToString().ToLower() == "true";
-                    String rational = jObj["rationale"].ToString();
-                    String optionText = jObj["text"].ToString();
-
-                    if (isCorrect)
-                    {
-                        sb.AppendLine("*" + c + ") " + optionText);
-                        sb.AppendLine("... " + rational);
-                    }
-                    else
-                    {
-                        sb.AppendLine(c + ") " + optionText);
-                        sb.AppendLine(string.Format("... {0}", rational));
-                    }
-
-                    c++;
+                    if (q is JsonObject qq && GetBool(qq, "isCorrect"))
+                        correctCount++;
                 }
-
-
-
-                //bool isCorrect = q["isCorrect"].toBoolean();
-                //bool isCorrect = q["isCorrect"].toBoolean();
-
             }
 
+            if (correctCount > 1 || mcqType.Equals("multiple_select", StringComparison.OrdinalIgnoreCase))
+            {
+                sb.AppendLine("[Select all that apply]");
+            }
 
+            if (!string.IsNullOrWhiteSpace(hint))
+                sb.AppendLine("... " + hint);
 
+            // Ascii here
+            char c = 'a';
+
+            if (questions != null)
+            {
+                foreach (var q in questions)
+                {
+                    if (q is JsonObject jObj)
+                    {
+
+                        Boolean isCorrect = GetBool(jObj, "isCorrect");
+                        String rational = GetString(jObj, "rationale");
+                        String optionText = GetString(jObj, "text");
+                        String label = c + ") " + optionText;
+
+                        if (mcqType.Equals("multiple_select", StringComparison.OrdinalIgnoreCase))
+                        {
+                            if (isCorrect)
+                            {
+                                sb.AppendLine("[*] " + label);
+                            }
+                            else
+                            {
+                                sb.AppendLine("[ ] " + label);
+                            }
+
+                            if (!string.IsNullOrWhiteSpace(rational))
+                                sb.AppendLine("... " + rational);
+                        }
+                        else
+                        {
+                            if (isCorrect)
+                            {
+                                sb.AppendLine("*" + label);
+                                if (!string.IsNullOrWhiteSpace(rational))
+                                    sb.AppendLine("... " + rational);
+                            }
+                            else
+                            {
+                                sb.AppendLine(label);
+                                if (!string.IsNullOrWhiteSpace(rational))
+                                    sb.AppendLine(string.Format("... {0}", rational));
+                            }
+                        }
+
+                        c++;
+                    }
+                }
+            }
+
+            if (GetBool(questionItem, "hasAllOfTheAbove"))
+            {
+                sb.AppendLine(c + ") All of the above");
+                c++;
+            }
+            if (GetBool(questionItem, "hasNoneOfTheAbove"))
+            {
+                sb.AppendLine(c + ") None of the above");
+            }
+
+                //bool isCorrect = q["isCorrect"].toBoolean();
+                //bool isCorrect = q["isCorrect"].toBoolean();
 
         }
+    }
+
+    private JsonArray FindQuestionsArray(JsonNode node)
+    {
+        if (node == null)
+            return null;
+
+        if (node is JsonArray arr)
+        {
+            if (LooksLikeQuestionsArray(arr))
+                return arr;
+
+            foreach (var child in arr)
+            {
+                var nested = FindQuestionsArray(child);
+                if (nested != null)
+                    return nested;
+            }
+            return null;
+        }
+
+        if (node is JsonObject obj)
+        {
+            string[] keys = { "questions", "items", "data", "results", "content" };
+            foreach (var key in keys)
+            {
+                if (obj[key] is JsonArray a)
+                    return a;
+            }
+
+            foreach (var prop in obj)
+            {
+                var nested = FindQuestionsArray(prop.Value);
+                if (nested != null)
+                    return nested;
+            }
+        }
+
+        return null;
+    }
+
+    private JsonArray FindAnswerOptions(JsonObject questionItem)
+    {
+        if (questionItem["answerOptions"] is JsonArray answerOptions)
+            return answerOptions;
+        if (questionItem["options"] is JsonArray options)
+            return options;
+        if (questionItem["answers"] is JsonArray answers)
+            return answers;
+        return null;
+    }
+
+    private bool LooksLikeQuestionsArray(JsonArray array)
+    {
+        foreach (var item in array)
+        {
+            if (item is JsonObject obj && (obj["question"] != null || obj["answerOptions"] != null))
+                return true;
+        }
+        return false;
+    }
+
+    private static String GetString(JsonObject obj, string key)
+    {
+        if (obj == null || obj[key] == null)
+            return string.Empty;
+
+        JsonNode value = obj[key];
+        if (value is JsonValue jv)
+        {
+            if (jv.TryGetValue<string>(out var s))
+                return s ?? string.Empty;
+            return jv.ToString();
+        }
+
+        return value.ToString();
+    }
+
+    private static bool GetBool(JsonObject obj, string key)
+    {
+        if (obj == null || obj[key] == null)
+            return false;
+
+        JsonNode value = obj[key];
+        if (value is JsonValue jv)
+        {
+            if (jv.TryGetValue<bool>(out var b))
+                return b;
+            if (jv.TryGetValue<string>(out var s) && bool.TryParse(s, out var parsed))
+                return parsed;
+            if (bool.TryParse(jv.ToString(), out parsed))
+                return parsed;
+        }
+        else
+        {
+            if (bool.TryParse(value.ToString(), out var parsed))
+                return parsed;
+        }
+
+        return false;
     }
     
 

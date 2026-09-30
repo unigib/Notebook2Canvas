@@ -65,7 +65,7 @@ namespace Notebook2Canvas
         {
             JsonToTextConverter jsonToTextConverter = new JsonToTextConverter();
 
-            StringBuilder sq = jsonToTextConverter.Convert(jsonImportFile, mdExportFile);
+            StringBuilder sq = jsonToTextConverter.Convert(jsonImportFile);
 
             richTextBox2.Text = sq.ToString();
 
@@ -88,6 +88,11 @@ namespace Notebook2Canvas
         {
             File.WriteAllText(mdExportFile, richTextBox2.Text);
             
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

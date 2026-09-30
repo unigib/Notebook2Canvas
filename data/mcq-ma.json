@@ -1,0 +1,747 @@
+[
+  {
+    "answerOptions": [
+      {
+        "isCorrect": false,
+        "rationale": "Thread concurrency relates to runtime execution parallelism rather than structural decoupling and independent maintainability of code.",
+        "text": "All system modules execute concurrently along independent CPU processing threads."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Function signature constraints do not guarantee that the internal implementation is decoupled from external state or other modules.",
+        "text": "Every function within the codebase is restricted to exactly one input parameter and one output value."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Orthogonality in computing signifies independence between components, ensuring that modifications to one subsystem do not ripple into or affect others.",
+        "text": "A change in one module does not cause or require a change in another unrelated module."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Strict inheritance chains create structural coupling between parent and child classes, which can actually decrease orthogonality if overused.",
+        "text": "Modules are organized in a strict linear dependency chain where higher layers inherit from lower layers."
+      }
+    ],
+    "hint": "Consider what happens to the vertical position of a point on a graph when moving purely horizontally along the x-axis.",
+    "question": "In geometric terms, two vectors moving along perpendicular axes are independent. How does this mathematical concept directly translate into the architectural design of a software system?",
+    "type": "multiple_choice"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": false,
+        "rationale": "Decoupling operator limbs does not make the underlying control mechanics orthogonal if the outputs cross-interfere with each other.",
+        "text": "Orthogonal design, because each control interface is assigned to a different physical limb of the operator."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Physical separation of linkages does not imply low coupling when operating one control directly alters the physical state governed by another.",
+        "text": "Low coupling, because the collective lever and tail rotor pedals operate through distinct mechanical linkage paths."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "In a non-orthogonal system, individual controls or inputs have side effects that force changes in other parts of the system to maintain equilibrium.",
+        "text": "Non-orthogonal design, because operating one control forces compensating manual adjustments across unrelated controls."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Cohesion refers to how well the internal elements of a single module belong together, not the complex side effects between separate control handles.",
+        "text": "High cohesion, because all mechanical controls collaborate towards the unified objective of flight."
+      }
+    ],
+    "hint": "Think about whether a single input action can be executed in complete isolation without affecting other flight variables.",
+    "question": "Consider a helicopter where raising the collective pitch lever automatically increases engine load, requiring the pilot to manually adjust the throttle and simultaneously press a foot pedal to compensate for yaw. What core design property does this mechanical control system demonstrate?",
+    "type": "multiple_choice"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": true,
+        "rationale": "Interdependencies and redundant responsibilities in non-orthogonal modules reduce the net functionality gained per unit of integration effort.",
+        "text": "Combining non-orthogonal components produces overlap, resulting in less total functional capability than $M \\times N$."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Overlapping responsibilities make testing significantly harder because components cannot be verified without bringing up the combined system state.",
+        "text": "Non-orthogonal components increase overall developer velocity because shared responsibilities eliminate the need for isolated unit tests."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Because orthogonal components do not overlap or interfere, their capabilities multiply seamlessly when combined in new contexts.",
+        "text": "Combining two orthogonal components yields $M \\times N$ total distinct interactions or useful outcomes per unit effort."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Orthogonal components require minimal adapter overhead due to clean, self-contained interfaces, whereas non-orthogonal components require extensive workarounds.",
+        "text": "Orthogonal components require $M + N$ integration adapters, whereas non-orthogonal components integrate automatically without glue code."
+      }
+    ],
+    "hasAllOfTheAbove": false,
+    "hasNoneOfTheAbove": false,
+    "hint": "Recall the multiplicative mathematical effect when cleanly separated features are combined without functional overlap.",
+    "question": "Combining two software components that independently perform $M$ and $N$ distinct tasks yields different outcomes depending on their orthogonality. Which statements accurately describe the productivity impact of combining orthogonal versus non-orthogonal components?",
+    "type": "multiple_select"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": true,
+        "rationale": "Isolated module boundaries prevent runtime failures or memory corruption in one feature from breaking adjacent features.",
+        "text": "Defective or 'diseased' code modules are isolated, preventing bugs from spreading across unrelated subsystems."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Clean boundaries allow test runners to instantiate target components quickly without configuring complex global dependencies.",
+        "text": "Individual components can be thoroughly unit tested in isolation without needing to initialize the entire application environment."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Orthogonality accommodates changing requirements gracefully, but it cannot prevent external business requirements from shifting.",
+        "text": "It guarantees that business requirements will remain fixed and unchanging throughout the project lifecycle."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Wait, this rationale needs to show why it IS correct! Adaptability to vendor changes is indeed a key risk reduction benefit.",
+        "text": "The core application is shielded from vendor lock-in because third-party interface changes are confined to localized adapter modules."
+      }
+    ],
+    "hasAllOfTheAbove": false,
+    "hasNoneOfTheAbove": false,
+    "hint": "Focus on how modular isolation affects bug containment, testing setup, and third-party dependency swaps.",
+    "question": "Which of the following represent distinct ways that an orthogonal architecture directly reduces project risk?",
+    "type": "multiple_select"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": true,
+        "rationale": "In a well-designed orthogonal system, the correct answer to this question should ideally be 'one module'.",
+        "text": "If a fundamental requirement behind a specific feature changes dramatically, how many distinct modules require modification?"
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Lines of code measure volume or verbosity rather than structural coupling or component independence.",
+        "text": "What is the total line count of source code required to implement the new feature from scratch?"
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Database version upgrades relate to infrastructure maintenance rather than application module decoupling.",
+        "text": "Does the proposed requirement change force the database engine to be upgraded to a newer major version?"
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Network traffic concerns network architecture and bandwidth optimization rather than system orthogonality.",
+        "text": "Can the new feature be executed on the client device without sending any HTTP network requests?"
+      }
+    ],
+    "hint": "Think about how localized the impact of a single functional modification remains within a decoupled codebase.",
+    "question": "A engineering team wishes to perform an 'acid test' to evaluate the degree of orthogonality in their system design. Which question should they ask when reviewing a proposed requirement change?",
+    "type": "multiple_choice"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": false,
+        "rationale": "Key choice issues stem from volatile external dependencies (orthogonality), not necessarily code duplication (DRY).",
+        "text": "Using external identifiers violates the Don't Repeat Yourself (DRY) principle by duplicating variable declarations."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Index performance is a database optimization detail, not a conceptual violation of orthogonal component design.",
+        "text": "Relational database engines cannot index string-based keys as efficiently as auto-incremented integers."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Data formatting quirks present string parsing issues rather than architectural coupling problems.",
+        "text": "Telephone numbers contain non-numeric formatting characters that break object-oriented inheritance hierarchies."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Relying on external properties that you cannot control introduces domain-wide coupling whenever those external rules or formats change.",
+        "text": "External identifiers are subject to third-party reassignment and changes, forcing widespread edits across unrelated internal modules."
+      }
+    ],
+    "hint": "Consider what happens across the entire system when a telephone company reassigns area codes or changes number lengths.",
+    "question": "A system uses a customer's landline telephone number as the primary identifier key across user interfaces, business logic rules, and database schemas. Why does this design choice violate orthogonality?",
+    "type": "multiple_choice"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": false,
+        "rationale": "Both principles are overarching design philosophies applicable across all architectural layers of software development.",
+        "text": "DRY applies exclusively to database normalization, whereas Orthogonality applies exclusively to user interface layouts."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "DRY focuses on single sources of truth for logic/data, while orthogonality focuses on ensuring changes in one module do not impact others.",
+        "text": "DRY aims to minimize the duplication of knowledge across a system, whereas Orthogonality aims to minimize interdependencies between components."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Orthogonality actually promotes code reusability by creating loosely coupled, self-contained components.",
+        "text": "DRY increases coupling between modules to ensure reusability, whereas Orthogonality prohibits code reusability entirely."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Global variables undermine both DRY and orthogonality, and neither principle mandates specific language keywords.",
+        "text": "DRY forces developers to use global variables, whereas Orthogonality forces developers to use abstract base classes."
+      }
+    ],
+    "hint": "Differentiate between eliminating duplicate representations of domain logic versus isolating changes between subsystems.",
+    "question": "How do the Don't Repeat Yourself (DRY) principle and the principle of Orthogonality differ in their primary focus within software engineering?",
+    "type": "multiple_choice"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": false,
+        "rationale": "Mixing infrastructure mechanics (transactions) into business domain code increases coupling and makes the method fragile to infrastructure changes.",
+        "text": "Developer A's approach is more orthogonal because every method contains all of its own execution dependencies inline."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Runtime driver execution is identical, but the structural coupling of the source code is drastically different.",
+        "text": "Both approaches exhibit identical orthogonality because both ultimately execute commit operations on the database driver."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Declarative annotations keep execution details outside the core domain method, allowing the same code to run in different transactional contexts without edits.",
+        "text": "Developer B's approach is more orthogonal because core business logic remains completely decoupled from transaction management mechanics."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Delegating cross-cutting concerns to transparent metadata configuration enhances orthogonality by separating concerns.",
+        "text": "Developer B's approach violates orthogonality by delegating control to external framework configurations."
+      }
+    ],
+    "hint": "Consider which developer's business logic code would require editing if the underlying transaction database engine were changed.",
+    "question": "An application needs to manage database transactions. Developer A writes explicit code inside every business logic method to begin, commit, and roll back transactions. Developer B uses declarative metadata annotations handled by the underlying container framework. How do these approaches compare regarding orthogonality?",
+    "type": "multiple_choice"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": false,
+        "rationale": "Global singletons introduce invisible, tightly coupled communication channels between completely unrelated parts of a system.",
+        "text": "Storing shared application runtime state in global singleton instances so all components can modify values freely."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Eliminating functional overlap ensures that bug fixes or updates occur in one isolated place rather than across duplicated routines.",
+        "text": "Refactoring functions that perform overlapping tasks into single, reusable abstraction components."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Limiting exposure and traversal (following the Law of Demeter) keeps modules isolated from changes in collaborating classes.",
+        "text": "Writing 'shy code' that avoids exposing unnecessary internal state and refrains from navigating the internal structures of collaborators."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Constructor injection makes dependencies explicit and prevents hidden coupling caused by shared runtime environments.",
+        "text": "Explicitly passing required context into objects via constructors or parameters rather than accessing global data structures."
+      }
+    ],
+    "hasAllOfTheAbove": false,
+    "hasNoneOfTheAbove": false,
+    "hint": "Look for techniques that enforce strict encapsulation, explicit dependency passing, and DRY refactoring.",
+    "question": "Which of the following software practices directly help maintain orthogonality during code construction?",
+    "type": "multiple_select"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": false,
+        "rationale": "Code obfuscation is a security/intellectual property mechanism, not an architectural decoupling technique.",
+        "text": "The module is compiled into obfuscated binary files to conceal source code from third-party developers."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Logging and telemetry are observability practices and are unrelated to the encapsulation philosophy of 'shy code'.",
+        "text": "The module operates silently without writing debug telemetry or operational events to system log files."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "'Shy code' respects privacy: it doesn't reveal unnecessary details about itself and doesn't rely on the personal details of others.",
+        "text": "The module reveals only essential interfaces to collaborators and avoids reaching into the internal details of other objects."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "'Shy code' can communicate with network or database services as long as it does so through clean, abstracted interfaces.",
+        "text": "The module refuses to communicate directly with external database servers or network API endpoints."
+      }
+    ],
+    "hint": "Think about personal privacy analogies: keeping personal secrets while not prying into other people's internal affairs.",
+    "question": "What does it mean for a software module to be written as 'shy code' in an orthogonal design?",
+    "type": "multiple_choice"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": false,
+        "rationale": "Importing source files is driven by dependency graphs in the code, not automated dead-code elimination.",
+        "text": "The build tool is performing static dead-code elimination to optimize test execution speed."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Unit tests are intended to verify isolated components; requiring the full application stack indicates an integration test scenario forced by bad design.",
+        "text": "The unit test suite is performing correctly by validating end-to-end operational workflows across all layers."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Cohesion measures internal single-purpose focus, whereas extensive external dependencies reflect poor external coupling.",
+        "text": "The targeted class exhibits optimal cohesion because it integrates seamlessly with the rest of the application."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "High import overhead during unit testing is a classic diagnostic signal of deep interdependencies and non-orthogonal design.",
+        "text": "The targeted class is tightly coupled to external modules, indicating a severe lack of orthogonality."
+      }
+    ],
+    "hint": "Consider how easy or difficult it should be to instantiate a truly independent component in a test environment.",
+    "question": "A developer attempts to write a unit test for a single utility class and discovers that the test file will not compile unless 80% of the entire application codebase is imported. What does this indicate about the architecture?",
+    "type": "multiple_choice"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": true,
+        "rationale": "When bug fixes cannot be localized to a single file or module, the system components are overly interdependent.",
+        "text": "The system suffers from poor orthogonality, causing localized defects to spread and require modifications throughout the codebase."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Coupling data models directly to UI views is tight coupling, which is the antithesis of clean, cohesive, orthogonal design.",
+        "text": "The application has achieved maximum cohesion by coupling data models directly to user interface views."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Architectural layering should isolate changes, not require scatter-gather updates across all layers for a single bug fix.",
+        "text": "The system demonstrates effective architectural layering by distributing maintenance responsibilities equally."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Following the Law of Demeter reduces ripple effects, whereas scattered edits prove that Demeter's law is being violated.",
+        "text": "The developers are adhering strictly to the Law of Demeter by propagating fixes through intermediate interfaces."
+      }
+    ],
+    "hint": "Think about whether a healthy architecture should require touching multiple unrelated folders to repair a minor logic error.",
+    "question": "A team leader tracks monthly version control commits and observes that fixing single, localized bugs routinely requires altering files scattered across six different subsystems. What diagnostic conclusion should be drawn?",
+    "type": "multiple_choice"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": true,
+        "rationale": "Layering restricts dependencies to adjacent abstractions, preventing runaway coupling across non-adjacent tiers.",
+        "text": "Each layer depends exclusively on the abstractions provided by the layer directly beneath it."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Stable interfaces isolate higher-level code from internal changes, such as switching from a SQL database to a NoSQL store.",
+        "text": "Underlying layer implementations can be modified or replaced without affecting higher layers, provided public interfaces remain stable."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Isolating the UI from database schemas ensures that visual layout redesigns do not break data storage logic.",
+        "text": "Higher-level user interface components are prevented from making direct structural modifications to database tables."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Shared global state bypasses layer boundaries and destroys the orthogonal isolation that layering is meant to provide.",
+        "text": "Every layer is granted unrestricted read and write access to a shared global configuration dictionary."
+      }
+    ],
+    "hasAllOfTheAbove": false,
+    "hasNoneOfTheAbove": false,
+    "hint": "Evaluate how defined boundaries between layers protect upper layers from changes in lower layers and vice versa.",
+    "question": "In a layered application architecture (e.g., Presentation Layer $\\rightarrow$ Business Logic $\\rightarrow$ Database Access), how does strict layering preserve system orthogonality?",
+    "type": "multiple_select"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": false,
+        "rationale": "Public global variables break encapsulation and completely violate orthogonality.",
+        "text": "It requires all internal object attributes to be declared as public global singletons for easy test mock injection."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "By forbidding calls through intermediate objects, the calling code remains uncoupled from the internal structural topology of `B` and `C`.",
+        "text": "It restricts a method to interacting only with its direct collaborators, preventing deep traversal calls like `a.getB().getC().doSomething()`."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "The Law of Demeter governs object interaction boundaries, not thread execution models or database mechanics.",
+        "text": "It enforces that database transactions must be executed asynchronously on background worker threads."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Forcing broad inheritance hierarchies often increases structural coupling rather than reducing it.",
+        "text": "It mandates that every class must inherit from a single abstract base class to guarantee polymorphic execution."
+      }
+    ],
+    "hint": "Recall the guideline about 'only talking to your immediate friends' rather than navigating through a chain of strangers.",
+    "question": "How does strict adherence to the Law of Demeter enhance orthogonal design in object-oriented code?",
+    "type": "multiple_choice"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": false,
+        "rationale": "A primary benefit of orthogonal design is explicitly preventing UI changes from forcing database rewrites.",
+        "text": "In both system types, UI changes inevitably force a full re-engineering of the database access layer."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Adding global variables across services reflects poor isolation and tight coupling, not orthogonality.",
+        "text": "In the orthogonal system, altering the UI view requires adding new global state variables across all back-end services."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Tightly coupled systems suffer from leaked responsibilities, meaning UI edits frequently force edits in database and logic tiers.",
+        "text": "In the tightly coupled system, UI changes are automatically contained within the view templates without touching back-end code."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Because the presentation layer interacts via stable interfaces, altering visual elements has zero impact on core domain models.",
+        "text": "In the orthogonal system, the UI can be completely replaced without changing any database schemas or business logic rules."
+      }
+    ],
+    "hint": "Focus on the principle of 'Local change' where modifying independent visual axes does not force storage layers to move.",
+    "question": "When comparing a Tightly Coupled system with an Orthogonal system during a total User Interface redesign, what is the expected operational outcome?",
+    "type": "multiple_choice"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": true,
+        "rationale": "When presentation templates know about raw database schema structures, the architecture is tightly coupled across tiers.",
+        "text": "Modifying a column name in a database table forces manual code edits inside HTML template files."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Localized algorithmic improvement without external ripple effects is a hallmark of good, orthogonal design.",
+        "text": "Optimizing an algorithm inside a self-contained data sorting class requires zero changes to collaborating UI classes."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Inability to test a class without dragging in the rest of the application proves that the class lacks clean, independent boundaries.",
+        "text": "Constructing a unit test for a single domain class requires mocking or instantiating numerous unrelated framework services."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Unintended side effects spreading to unrelated subsystems indicate hidden coupling and non-isolated state.",
+        "text": "A simple bug fix in the customer notification module causes an unexpected crash in the billing calculation pipeline."
+      }
+    ],
+    "hasAllOfTheAbove": false,
+    "hasNoneOfTheAbove": false,
+    "hint": "Identify scenarios where changes or failures in one domain unexpectedly breach boundaries into completely unrelated domains.",
+    "question": "Which of the following architectural behaviors represent clear warning signs that a software system is non-orthogonal?",
+    "type": "multiple_select"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": false,
+        "rationale": "Global variables may still be statically typed; the danger is architectural interdependency, not type checking disabling.",
+        "text": "It forces compilers to disable static type checking across all functions in the project file."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "While global state can cause thread-safety issues in parallel tests, the root structural hazard is widespread implicit coupling.",
+        "text": "It prevents unit testing frameworks from executing tests in parallel across multiple CPU cores."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Global state acts as a hidden channel connecting unrelated components; any modification by one module can break assumptions in another.",
+        "text": "It creates invisible, unmanaged coupling between every module that reads or writes the global data, making local changes unpredictable."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Version control systems track text changes and do not analyze programmatic variable scopes or merge conflicts based on global state rules.",
+        "text": "It causes version control systems to reject merge requests containing duplicate variable names."
+      }
+    ],
+    "hint": "Consider how easy it is to trace which function modified a variable when any function in the system can edit it at any time.",
+    "question": "What is the primary operational danger of relying on shared global data from an orthogonality perspective?",
+    "type": "multiple_choice"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": false,
+        "rationale": "Method modifier keywords like static or virtual are language implementation details unrelated to the conceptual definition of cohesion.",
+        "text": "Cohesion forces all class methods to be static, whereas tight coupling enforces polymorphic interface implementation."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "High cohesion within a class ensures it has a single, focused responsibility, while low coupling keeps separate classes independent.",
+        "text": "Cohesion binds closely related routines and data serving a single well-defined purpose, whereas tight coupling links independent modules unnecessarily."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Cohesion is about focusing single-purpose responsibilities, not granting permission to alter global state.",
+        "text": "Cohesion allows classes to mutate global state safely, whereas tight coupling restricts variables to local method scope."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Cohesive, orthogonal code is far easier to unit test than tightly coupled code.",
+        "text": "Cohesion eliminates the need for automated unit tests, whereas tight coupling makes unit testing simple."
+      }
+    ],
+    "hint": "Distinguish between code and data organized around one focused task versus fragile links binding unrelated tasks together.",
+    "question": "Why is 'cohesion' within a class considered a desirable form of binding, whereas 'tight coupling' between modules is considered undesirable?",
+    "type": "multiple_choice"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": false,
+        "rationale": "Duplicating core logic violates the DRY principle and creates maintenance divergence, contradicting orthogonal architecture.",
+        "text": "Copying and pasting the core plant monitoring methods into a dedicated mobile codebase to isolate mobile bugs from desktop bugs."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Rewriting hardware drivers does not address the core requirement of serving a new mobile presentation interface cleanly.",
+        "text": "Rewriting the underlying sensor driver layer in a mobile-specific language while leaving the GUI code untouched."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Isolating business domain logic allows multiple user interfaces to consume the exact same underlying control engine.",
+        "text": "Abstracting core plant monitoring logic into a standalone service layer that serves both desktop and mobile UI views without code duplication."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Mixing hardware sensor I/O with UI rendering code severely reduces orthogonality by tightly coupling hardware layers to presentation layers.",
+        "text": "Embedding mobile screen rendering logic directly inside the hardware sensor polling loop to minimize network latency."
+      }
+    ],
+    "hint": "Recall how orthogonal systems can support new user interface requirements using the exact same underlying core codebase.",
+    "question": "A heating plant monitoring system originally built for a desktop GUI must now support a lightweight mobile dashboard. Which architectural decision best demonstrates orthogonal design?",
+    "type": "multiple_choice"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": true,
+        "rationale": "Contained failure ensures that defects or unexpected exceptions in one module do not spread to or corrupt adjacent subsystems.",
+        "text": "A runtime crash within an external payment gateway integration module does not corrupt order processing or inventory records."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Uncontained resource exhaustion that crashes the host process demonstrates poor isolation and uncontained failure.",
+        "text": "A memory leak inside a third-party plugin gradually consumes system memory until the operating system halts the entire process."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Isolating non-critical subsystems prevents secondary service faults from bringing down mission-critical primary paths.",
+        "text": "A network timeout occurring in an optional user analytics logging service does not disrupt the core checkout workflow."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "A UI error knocking down database infrastructure is the exact opposite of contained failure; it indicates tight, dangerous coupling.",
+        "text": "A null pointer exception in a GUI rendering component causes the background database connection pool manager to terminate."
+      }
+    ],
+    "hasAllOfTheAbove": false,
+    "hasNoneOfTheAbove": false,
+    "hint": "Look for cases where an error in a peripheral or non-critical component is prevented from damaging unrelated primary systems.",
+    "question": "Which of the following real-world architectural scenarios illustrate the principle of 'Contained Failure' provided by orthogonal design?",
+    "type": "multiple_select"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": false,
+        "rationale": "Mandating XML string fields is an intrusive data representation requirement that degrades clean object model design.",
+        "text": "It forces all domain class fields to be formatted as public plain-text XML strings."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Transparency refers to decoupling persistent representations, not abandoning persistent storage engines.",
+        "text": "It eliminates the need for database storage entirely by keeping all domain entities stored permanently in RAM global variables."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "When persistence is transparent, domain objects do not know how or where they are stored, allowing storage vendors or schemas to change independently.",
+        "text": "Domain model classes remain pure business representations without being coupled to specific database persistence APIs or schemas."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Embedding raw SQL inside domain getters/setters tightly couples domain models to specific SQL dialects and database table structures.",
+        "text": "It allows domain objects to construct and execute raw SQL string queries directly inside their getter and setter methods."
+      }
+    ],
+    "hint": "Think about what happens to domain classes if you decide to swap the underlying persistence mechanism from SQL to flat files.",
+    "question": "How does using transparent object persistence (such as an ORM framework that does not require domain entities to inherit from framework base classes) maintain orthogonality?",
+    "type": "multiple_choice"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": false,
+        "rationale": "Method overriding modifies method dispatch behavior; it does not alter attribute visibility scopes or convert them into singletons.",
+        "text": "Overriding parent methods automatically converts all private class attributes into shared global singletons."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Polymorphism explicitly allows subclass instances to be passed wherever base class types are accepted.",
+        "text": "Subclassing prevents derived objects from being passed as arguments to collaborating class constructors."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Inheritance exposes child classes to parent implementation details, creating a tight coupling known as the fragile base class problem.",
+        "text": "Subclasses become tightly coupled to the implementation details of parent classes, causing base class updates to break derived classes unexpectedly."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Unit testing frameworks fully support testing overridden methods on derived classes.",
+        "text": "Method overriding forces compilers to disable unit testing for all derived class methods."
+      }
+    ],
+    "hint": "Consider the 'fragile base class' problem, where changing internal helper code in a superclass inadvertently alters child class behavior.",
+    "question": "In object-oriented programming, how can subclassing and parent-method overriding accidentally diminish system orthogonality if applied without care?",
+    "type": "multiple_choice"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": false,
+        "rationale": "Creating a monolithic utility class centralizes unrelated concerns and increases coupling across all importing files.",
+        "text": "Consolidate all helper functions across the codebase into a single monolithic utility class with public static methods."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Breaking up monolithic classes increases cohesion and isolates distinct responsibilities into independent modules.",
+        "text": "Decompose large, multi-purpose classes into smaller, self-contained components that each have a single, well-defined purpose."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Encapsulating third-party libraries prevents external API breaking changes from propagating throughout core application logic.",
+        "text": "Isolate third-party libraries and external framework dependencies behind abstract interfaces or adapter classes."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Removing global data channels eliminates hidden interdependencies and forces component communication to be visible and explicit.",
+        "text": "Identify and eliminate shared global variables by converting them into explicitly passed parameters or injected dependencies."
+      }
+    ],
+    "hasAllOfTheAbove": false,
+    "hasNoneOfTheAbove": false,
+    "hint": "Focus on techniques that eliminate hidden coupling, enforce single responsibility, and insulate core code from third-party APIs.",
+    "question": "When refactoring a legacy application to significantly improve its orthogonality, which steps should the development team prioritize?",
+    "type": "multiple_select"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": true,
+        "rationale": "Self-contained modules with clear boundaries can be plugged into new projects or configurations without bringing along unintended baggage.",
+        "text": "Orthogonal components have explicit, loosely coupled interfaces and well-defined responsibilities, making them easy to combine in novel contexts."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Dragging along large dependency graphs makes non-orthogonal components extremely difficult and frustrating to reuse.",
+        "text": "Non-orthogonal components promote better reusability because their deep dependency graphs automatically pull in essential helper routines."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Architectural coupling directly dictates how easily code can be reused, regardless of language features.",
+        "text": "Reusability is determined strictly by the programming language compiler and is unaffected by component coupling or architecture."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Orthogonality enhances reusability because components do not depend on implicit application environment assumptions.",
+        "text": "Orthogonal components cannot be reused because they are custom-tailored to solve a single specific application problem."
+      }
+    ],
+    "hint": "Consider how easy it is to take a single standalone module and plug it into an entirely new application.",
+    "question": "What is the direct relationship between orthogonal software design and component reusability?",
+    "type": "multiple_choice"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": false,
+        "rationale": "Allowing third-party SDKs direct access to internal database tables violates tier isolation and destroys orthogonality.",
+        "text": "By requiring each payment SDK to directly write transaction records into the application's SQL database tables."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Global API key dictionaries create security risks and do not solve the structural coupling of payment execution logic.",
+        "text": "By storing API access tokens for all payment providers in a shared global dictionary accessible by all UI views."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Hardcoding vendor checks in presentation handlers tightly couples UI components to specific payment provider APIs.",
+        "text": "By adding nested `if-else` conditional blocks checking vendor names directly inside the primary checkout button click handler."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "An abstract interface encapsulates vendor specifics, allowing core workflows to interact with any payment provider interchangeably.",
+        "text": "By defining a stable `PaymentProcessor` interface that isolates vendor SDK details from core order checkout workflows."
+      }
+    ],
+    "hint": "Think about how to create a 'Replaceable' component behind a stable, unified interface boundary.",
+    "question": "Suppose an e-commerce platform needs to support multiple payment processors (e.g., Stripe, PayPal, Square). How does an orthogonal design accommodate swapping or adding processor integrations?",
+    "type": "multiple_choice"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": false,
+        "rationale": "Direct memory/implementation manipulation destroys abstraction boundaries and breaks orthogonal design.",
+        "text": "Avoid using interface abstractions so developers can directly inspect memory pointers of collaborating objects."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Tip 17 is the core definition of orthogonality in software craftsmanship: ensuring isolated components have no unintended side effects on unrelated code.",
+        "text": "Design independent, self-contained components with single, well-defined responsibilities so changes in one do not impact others."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Monolithic files mix unrelated concerns and create severe maintenance bottlenecks.",
+        "text": "Combine all business rules into a single source file so that all system effects can be inspected concurrently."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Side effects increase hidden coupling and make systems harder to reason about and maintain.",
+        "text": "Ensure every function contains explicit side effects to maximize operational state logging across subsystems."
+      }
+    ],
+    "hint": "Focus on the principle of self-contained modules with high cohesion and zero unintended ripple effects.",
+    "question": "Which core engineering philosophy best summarizes Tip 17: 'Eliminate Effects Between Unrelated Things'?",
+    "type": "multiple_choice"
+  },
+  {
+    "answerOptions": [
+      {
+        "isCorrect": true,
+        "rationale": "Minimal external dependencies mean test setups require little boilerplate or environment configuration.",
+        "text": "Target components can be instantiated and executed in isolation without requiring complex setup of unrelated modules."
+      },
+      {
+        "isCorrect": false,
+        "rationale": "Orthogonality improves architectural structure and test setup efficiency, but it does not alter language compilation or interpretation mechanisms.",
+        "text": "Unit tests in orthogonal systems automatically run faster because they bypass machine code compilation steps."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Decoupled designs rely on explicit interfaces, making mock injection straightforward during automated testing.",
+        "text": "Mock objects or stubs can be cleanly substituted for external dependencies behind stable interface boundaries."
+      },
+      {
+        "isCorrect": true,
+        "rationale": "Isolated failures eliminate noisy cascading test drops across unrelated test files, speeding up root-cause diagnosis.",
+        "text": "Test failures pinpoint defects directly within the specific module under test rather than cascading into false positives elsewhere."
+      }
+    ],
+    "hasAllOfTheAbove": false,
+    "hasNoneOfTheAbove": false,
+    "hint": "Consider test setup complexity, precise bug localization, and the ease of injecting mock dependencies.",
+    "question": "Which specific factors make unit testing an orthogonal system dramatically easier than unit testing a non-orthogonal system?",
+    "type": "multiple_select"
+  }
+]
