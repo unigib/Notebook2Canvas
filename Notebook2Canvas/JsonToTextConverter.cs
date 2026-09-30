@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Windows.Forms.VisualStyles;
+using System.Text.RegularExpressions;
 
 public class JsonToTextConverter
 {
@@ -56,8 +57,8 @@ public class JsonToTextConverter
 
             Console.WriteLine("Name: " + item.ToString());
 
-            String question = GetString(questionItem, "question");
-            String hint = GetString(questionItem, "hint");
+            String question = SanitizeQuizMarkdown(GetString(questionItem, "question"));
+            String hint = SanitizeQuizMarkdown(GetString(questionItem, "hint"));
             String mcqType = GetString(questionItem, "type");
 
             JsonArray questions = FindAnswerOptions(questionItem);
@@ -83,7 +84,8 @@ public class JsonToTextConverter
 
             if (correctCount > 1 || mcqType.Equals("multiple_select", StringComparison.OrdinalIgnoreCase))
             {
-                sb.AppendLine("[Select all that apply]");
+                // Avoid standalone bracketed instruction lines that break the parser
+                sb.AppendLine("Select all that apply");
             }
 
             if (!string.IsNullOrWhiteSpace(hint))
@@ -100,8 +102,8 @@ public class JsonToTextConverter
                     {
 
                         Boolean isCorrect = GetBool(jObj, "isCorrect");
-                        String rational = GetString(jObj, "rationale");
-                        String optionText = GetString(jObj, "text");
+                        String rational = SanitizeQuizMarkdown(GetString(jObj, "rationale"));
+                        String optionText = SanitizeQuizMarkdown(GetString(jObj, "text"));
                         String label = c + ") " + optionText;
 
                         if (mcqType.Equals("multiple_select", StringComparison.OrdinalIgnoreCase))
@@ -284,5 +286,20 @@ public class JsonToTextConverter
                 }
                 break;
         }
+    }
+
+    // Sanitizes quiz markdown by removing standalone bracketed instruction lines
+    private static string SanitizeQuizMarkdown(string md)
+    {
+        if (string.IsNullOrEmpty(md))
+            return md;
+
+        // Remove lines like: [Select all that apply], [Select one], [Select all], ...
+        md = Regex.Replace(md, "(?im)^\s*\[.*?(select.*?apply|select\s*one|select).*?\]\s*$", "", RegexOptions.Multiline);
+
+        // Also remove any empty lines left behind
+        md = Regex.Replace(md, "(?m)^[ \t]*\r?\n", "");
+
+        return md.Trim();
     }
 }
