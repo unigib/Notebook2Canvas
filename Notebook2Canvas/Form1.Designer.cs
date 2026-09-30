@@ -44,6 +44,8 @@
             this.rjButton1 = new Notebook2Canvas.RJButton();
             this.rjButtonPrefs = new Notebook2Canvas.RJButton();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.labelConverter = new System.Windows.Forms.Label();
+            this.textBoxConverterPath = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // button1
@@ -228,6 +230,23 @@
             this.comboBox1.TabIndex = 13;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
+            // labelConverter
+            // 
+            this.labelConverter.AutoSize = true;
+            this.labelConverter.Location = new System.Drawing.Point(194, 78);
+            this.labelConverter.Name = "labelConverter";
+            this.labelConverter.Size = new System.Drawing.Size(54, 13);
+            this.labelConverter.TabIndex = 16;
+            this.labelConverter.Text = "Converter:";
+            // 
+            // textBoxConverterPath
+            // 
+            this.textBoxConverterPath.Location = new System.Drawing.Point(287, 75);
+            this.textBoxConverterPath.Name = "textBoxConverterPath";
+            this.textBoxConverterPath.ReadOnly = true;
+            this.textBoxConverterPath.Size = new System.Drawing.Size(574, 20);
+            this.textBoxConverterPath.TabIndex = 17;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -236,6 +255,8 @@
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.rjButtonExport);
             this.Controls.Add(this.rjButtonPrefs);
+            this.Controls.Add(this.labelConverter);
+            this.Controls.Add(this.textBoxConverterPath);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -273,6 +294,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboBox1;
         private RJButton rjButtonPrefs;
+        private System.Windows.Forms.Label labelConverter;
+        private System.Windows.Forms.TextBox textBoxConverterPath;
     }
 }
 

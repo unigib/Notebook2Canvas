@@ -183,6 +183,8 @@ namespace Notebook2Canvas
                     preferredConverterPath = File.ReadAllText(file).Trim();
                     if (string.IsNullOrWhiteSpace(preferredConverterPath))
                         preferredConverterPath = null;
+                    // update UI if control exists
+                    try { textBoxConverterPath.Text = preferredConverterPath ?? "(not set)"; } catch { }
                 }
             }
             catch
