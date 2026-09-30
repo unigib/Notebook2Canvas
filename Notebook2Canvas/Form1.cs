@@ -16,9 +16,12 @@ namespace Notebook2Canvas
     {
         String mdExportFile;
         String jsonImportFile;
+        // user preference: explicit converter path
+        private string preferredConverterPath;
         public Form1()
         {
             InitializeComponent();
+            LoadPreferences();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -112,12 +115,23 @@ namespace Notebook2Canvas
             string bundledExeAlt = Path.Combine(appBase, "tools", "text2qti.exe");
 
             string exeToRun;
-            if (File.Exists(bundledExe))
+            // If user configured a converter path, prefer it
+            if (!string.IsNullOrWhiteSpace(preferredConverterPath) && File.Exists(preferredConverterPath))
+            {
+                exeToRun = preferredConverterPath;
+            }
+            else if (File.Exists(bundledExe))
+            {
                 exeToRun = bundledExe;
+            }
             else if (File.Exists(bundledExeAlt))
+            {
                 exeToRun = bundledExeAlt;
+            }
             else
+            {
                 exeToRun = "text2qti"; // expect on PATH
+            }
 
             string args = $"\"{mdExportFile}\"";
 
@@ -145,6 +159,52 @@ namespace Notebook2Canvas
                         p.WaitForExit();
                         return new { ExitCode = p.ExitCode, StdOut = stdout, StdErr = stderr };
                     }
+
+        private void rjButtonPrefs_Click(object sender, EventArgs e)
+        {
+            using (var pref = new PreferencesForm(preferredConverterPath))
+            {
+                if (pref.ShowDialog(this) == DialogResult.OK)
+                {
+                    preferredConverterPath = pref.SelectedPath;
+                    SavePreferences(preferredConverterPath);
+                }
+            }
+        }
+
+        private void LoadPreferences()
+        {
+            try
+            {
+                var dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Notebook2Canvas");
+                var file = Path.Combine(dir, "settings.txt");
+                if (File.Exists(file))
+                {
+                    preferredConverterPath = File.ReadAllText(file).Trim();
+                    if (string.IsNullOrWhiteSpace(preferredConverterPath))
+                        preferredConverterPath = null;
+                }
+            }
+            catch
+            {
+                // ignore
+            }
+        }
+
+        private void SavePreferences(string converterPath)
+        {
+            try
+            {
+                var dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Notebook2Canvas");
+                Directory.CreateDirectory(dir);
+                var file = Path.Combine(dir, "settings.txt");
+                File.WriteAllText(file, converterPath ?? string.Empty);
+            }
+            catch
+            {
+                // ignore
+            }
+        }
                 });
 
                 if (result.ExitCode != 0)

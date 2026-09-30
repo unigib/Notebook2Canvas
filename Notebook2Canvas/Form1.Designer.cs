@@ -42,6 +42,7 @@
             this.rjButton2 = new Notebook2Canvas.RJButton();
             this.rjButtonExport = new Notebook2Canvas.RJButton();
             this.rjButton1 = new Notebook2Canvas.RJButton();
+            this.rjButtonPrefs = new Notebook2Canvas.RJButton();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
@@ -180,6 +181,25 @@
             this.rjButtonExport.UseVisualStyleBackColor = false;
             this.rjButtonExport.Click += new System.EventHandler(this.rjButtonExportQti_Click);
             // 
+            // rjButtonPrefs
+            // 
+            this.rjButtonPrefs.BackColor = System.Drawing.Color.Crimson;
+            this.rjButtonPrefs.BackgroundColor = System.Drawing.Color.Crimson;
+            this.rjButtonPrefs.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.rjButtonPrefs.BorderRadius = 5;
+            this.rjButtonPrefs.BorderSize = 1;
+            this.rjButtonPrefs.FlatAppearance.BorderSize = 0;
+            this.rjButtonPrefs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rjButtonPrefs.ForeColor = System.Drawing.Color.White;
+            this.rjButtonPrefs.Location = new System.Drawing.Point(339, 321);
+            this.rjButtonPrefs.Name = "rjButtonPrefs";
+            this.rjButtonPrefs.Size = new System.Drawing.Size(131, 33);
+            this.rjButtonPrefs.TabIndex = 15;
+            this.rjButtonPrefs.Text = "Preferences";
+            this.rjButtonPrefs.TextColor = System.Drawing.Color.White;
+            this.rjButtonPrefs.UseVisualStyleBackColor = false;
+            this.rjButtonPrefs.Click += new System.EventHandler(this.rjButtonPrefs_Click);
+            // 
             // rjButton1
             // 
             this.rjButton1.BackColor = System.Drawing.Color.Crimson;
@@ -215,6 +235,7 @@
             this.ClientSize = new System.Drawing.Size(988, 431);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.rjButtonExport);
+            this.Controls.Add(this.rjButtonPrefs);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -251,6 +272,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboBox1;
+        private RJButton rjButtonPrefs;
     }
 }
 
