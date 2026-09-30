@@ -40,6 +40,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.rjButton3 = new Notebook2Canvas.RJButton();
             this.rjButton2 = new Notebook2Canvas.RJButton();
+            this.rjButtonExport = new Notebook2Canvas.RJButton();
             this.rjButton1 = new Notebook2Canvas.RJButton();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
@@ -160,6 +161,25 @@
             this.rjButton2.UseVisualStyleBackColor = false;
             this.rjButton2.Click += new System.EventHandler(this.rjButton2_Click);
             // 
+            // rjButtonExport
+            // 
+            this.rjButtonExport.BackColor = System.Drawing.Color.Crimson;
+            this.rjButtonExport.BackgroundColor = System.Drawing.Color.Crimson;
+            this.rjButtonExport.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.rjButtonExport.BorderRadius = 5;
+            this.rjButtonExport.BorderSize = 1;
+            this.rjButtonExport.FlatAppearance.BorderSize = 0;
+            this.rjButtonExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rjButtonExport.ForeColor = System.Drawing.Color.White;
+            this.rjButtonExport.Location = new System.Drawing.Point(482, 321);
+            this.rjButtonExport.Name = "rjButtonExport";
+            this.rjButtonExport.Size = new System.Drawing.Size(131, 33);
+            this.rjButtonExport.TabIndex = 14;
+            this.rjButtonExport.Text = "Export → QTI";
+            this.rjButtonExport.TextColor = System.Drawing.Color.White;
+            this.rjButtonExport.UseVisualStyleBackColor = false;
+            this.rjButtonExport.Click += new System.EventHandler(this.rjButtonExportQti_Click);
+            // 
             // rjButton1
             // 
             this.rjButton1.BackColor = System.Drawing.Color.Crimson;
@@ -194,6 +214,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(988, 431);
             this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.rjButtonExport);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -217,6 +238,7 @@
         #endregion
 
         private RJButton rjButton1;
+        private RJButton rjButtonExport;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.TextBox textBox1;
