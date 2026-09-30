@@ -105,8 +105,20 @@ namespace Notebook2Canvas
                 return;
             }
 
-            // Default command: try to run `text2qti` on PATH. If users bundle python, they can change this later.
-            string exe = "text2qti";
+            // Prefer a bundled text2qti executable shipped with the app (./tools/text2qti/text2qti.exe or ./tools/text2qti.exe).
+            // Fallback to `text2qti` on PATH if no bundled executable is present.
+            string appBase = AppDomain.CurrentDomain.BaseDirectory;
+            string bundledExe = Path.Combine(appBase, "tools", "text2qti", "text2qti.exe");
+            string bundledExeAlt = Path.Combine(appBase, "tools", "text2qti.exe");
+
+            string exeToRun;
+            if (File.Exists(bundledExe))
+                exeToRun = bundledExe;
+            else if (File.Exists(bundledExeAlt))
+                exeToRun = bundledExeAlt;
+            else
+                exeToRun = "text2qti"; // expect on PATH
+
             string args = $"\"{mdExportFile}\"";
 
             var outputDir = Path.GetDirectoryName(mdExportFile) ?? Environment.CurrentDirectory;
@@ -137,19 +149,28 @@ namespace Notebook2Canvas
 
                 if (result.ExitCode != 0)
                 {
-                    MessageBox.Show($"text2qti failed (exit {result.ExitCode}).\n\n{result.StdErr}", "Export QTI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"{text2qtiDisplayName(exeToRun)} failed (exit {result.ExitCode}).\n\n{result.StdErr}", "Export QTI", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    MessageBox.Show("text2qti completed successfully. Output directory: " + outputDir, "Export QTI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(text2qtiDisplayName(exeToRun) + " completed successfully. Output directory: " + outputDir, "Export QTI", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     // Optionally open output folder
                     try { Process.Start("explorer.exe", outputDir); } catch { }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to run text2qti: {ex.Message}", "Export QTI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Failed to run {exeToRun}: {ex.Message}", "Export QTI", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private string text2qtiDisplayName(string exePath)
+        {
+            if (string.IsNullOrWhiteSpace(exePath))
+                return "text2qti";
+            if (exePath.Equals("text2qti", StringComparison.OrdinalIgnoreCase))
+                return "text2qti (PATH)";
+            return Path.GetFileName(exePath);
         }
     }
 }
