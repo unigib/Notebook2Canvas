@@ -139,7 +139,7 @@ namespace Notebook2Canvas
 
             var psi = new ProcessStartInfo
             {
-                FileName = exe,
+                FileName = exeToRun,
                 Arguments = args,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -151,7 +151,8 @@ namespace Notebook2Canvas
             try
             {
                 // Run process off the UI thread
-                var result = await Task.Run(() => {
+                var result = await Task.Run(() =>
+                {
                     using (var p = Process.Start(psi))
                     {
                         string stdout = p.StandardOutput.ReadToEnd();
@@ -159,6 +160,25 @@ namespace Notebook2Canvas
                         p.WaitForExit();
                         return new { ExitCode = p.ExitCode, StdOut = stdout, StdErr = stderr };
                     }
+                });
+
+                if (result.ExitCode != 0)
+                {
+                    MessageBox.Show($"{text2qtiDisplayName(exeToRun)} failed (exit {result.ExitCode}).\n\n{result.StdErr}", "Export QTI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show(text2qtiDisplayName(exeToRun) + " completed successfully. Output directory: " + outputDir, "Export QTI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Optionally open output folder
+                    try { Process.Start("explorer.exe", outputDir); } catch { }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to run {exeToRun}: {ex.Message}", "Export QTI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
 
         private void rjButtonPrefs_Click(object sender, EventArgs e)
         {
