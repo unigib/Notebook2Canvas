@@ -43,7 +43,7 @@
             this.rjButtonExport = new Notebook2Canvas.RJButton();
             this.rjButton1 = new Notebook2Canvas.RJButton();
             this.rjButtonPrefs = new Notebook2Canvas.RJButton();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            // comboBox1 removed - not used anymore
             this.labelConverter = new System.Windows.Forms.Label();
             this.textBoxConverterPath = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
@@ -128,15 +128,15 @@
             // 
             // rjButton3
             // 
-            this.rjButton3.BackColor = System.Drawing.Color.Crimson;
-            this.rjButton3.BackgroundColor = System.Drawing.Color.Crimson;
+            this.rjButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(0)))), ((int)(((byte)(12)))));
+            this.rjButton3.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(0)))), ((int)(((byte)(12)))));
             this.rjButton3.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.rjButton3.BorderRadius = 5;
             this.rjButton3.BorderSize = 1;
             this.rjButton3.FlatAppearance.BorderSize = 0;
             this.rjButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rjButton3.ForeColor = System.Drawing.Color.White;
-            this.rjButton3.Location = new System.Drawing.Point(131, 323);
+            this.rjButton3.Location = new System.Drawing.Point(131, 321);
             this.rjButton3.Name = "rjButton3";
             this.rjButton3.Size = new System.Drawing.Size(150, 33);
             this.rjButton3.TabIndex = 8;
@@ -147,8 +147,8 @@
             // 
             // rjButton2
             // 
-            this.rjButton2.BackColor = System.Drawing.Color.Crimson;
-            this.rjButton2.BackgroundColor = System.Drawing.Color.Crimson;
+            this.rjButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(0)))), ((int)(((byte)(12)))));
+            this.rjButton2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(0)))), ((int)(((byte)(12)))));
             this.rjButton2.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.rjButton2.BorderRadius = 5;
             this.rjButton2.BorderSize = 1;
@@ -166,8 +166,8 @@
             // 
             // rjButtonExport
             // 
-            this.rjButtonExport.BackColor = System.Drawing.Color.Crimson;
-            this.rjButtonExport.BackgroundColor = System.Drawing.Color.Crimson;
+            this.rjButtonExport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(0)))), ((int)(((byte)(12)))));
+            this.rjButtonExport.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(0)))), ((int)(((byte)(12)))));
             this.rjButtonExport.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.rjButtonExport.BorderRadius = 5;
             this.rjButtonExport.BorderSize = 1;
@@ -185,15 +185,15 @@
             // 
             // rjButtonPrefs
             // 
-            this.rjButtonPrefs.BackColor = System.Drawing.Color.Crimson;
-            this.rjButtonPrefs.BackgroundColor = System.Drawing.Color.Crimson;
+            this.rjButtonPrefs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(0)))), ((int)(((byte)(12)))));
+            this.rjButtonPrefs.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(0)))), ((int)(((byte)(12)))));
             this.rjButtonPrefs.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.rjButtonPrefs.BorderRadius = 5;
             this.rjButtonPrefs.BorderSize = 1;
             this.rjButtonPrefs.FlatAppearance.BorderSize = 0;
             this.rjButtonPrefs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rjButtonPrefs.ForeColor = System.Drawing.Color.White;
-            this.rjButtonPrefs.Location = new System.Drawing.Point(339, 321);
+            this.rjButtonPrefs.Location = new System.Drawing.Point(x: 339, y: 321);
             this.rjButtonPrefs.Name = "rjButtonPrefs";
             this.rjButtonPrefs.Size = new System.Drawing.Size(131, 33);
             this.rjButtonPrefs.TabIndex = 15;
@@ -223,12 +223,8 @@
             // 
             // comboBox1
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(197, 88);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 13;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // comboBox1 removed - not used anymore
+
             // 
             // labelConverter
             // 
@@ -252,7 +248,34 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(988, 431);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.rjButtonExport);
+            this.Controls.Add(this.rjButtonPrefs);
+            this.Controls.Add(this.labelConverter);
+            this.Controls.Add(this.textBoxConverterPath);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.rjButton2);
+            this.Controls.Add(this.rjButton3);
+            this.Controls.Add(this.richTextBox2);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.rjButton1);
+            this.Controls.Add(this.button1);
+            this.Name = "Form1";
+            this.Text = "Notebook2Canvas";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+            this.textBoxConverterPath.TabIndex = 17;
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(988, 431);
+            // comboBox1 removed - not used anymore
             this.Controls.Add(this.rjButtonExport);
             this.Controls.Add(this.rjButtonPrefs);
             this.Controls.Add(this.labelConverter);
@@ -292,7 +315,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBox1;
+        // comboBox1 removed - not used anymore
         private RJButton rjButtonPrefs;
         private System.Windows.Forms.Label labelConverter;
         private System.Windows.Forms.TextBox textBoxConverterPath;

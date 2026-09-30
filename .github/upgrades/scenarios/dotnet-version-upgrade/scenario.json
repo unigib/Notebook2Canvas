@@ -3,7 +3,12 @@
   "operationId": "27f27ae0-607d-4e4b-93c9-6d61290105f9",
   "description": "Upgrade .NET projects to newer .NET versions, including guidance on current release status, support lifecycle (LTS/STS), and recommended upgrade targets.",
   "startTime": "2026-09-30T17:28:14.5453913Z",
-  "lastUpdateTime": "2026-09-30T17:28:14.5863228Z",
-  "properties": {},
+  "lastUpdateTime": "2026-09-30T17:32:18.3881948Z",
+  "properties": {
+    "UpgradeTargetFramework": "net10.0",
+    "taskStates": {
+      "01-sanitize-quiz-markdown": "Completed"
+    }
+  },
   "folderPath": ""
 }
