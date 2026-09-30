@@ -4,7 +4,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Windows.Forms.VisualStyles;
-using System.Text.RegularExpressions;
+// ...existing usings
 
 public class JsonToTextConverter
 {
@@ -57,8 +57,8 @@ public class JsonToTextConverter
 
             Console.WriteLine("Name: " + item.ToString());
 
-            String question = SanitizeQuizMarkdown(GetString(questionItem, "question"));
-            String hint = SanitizeQuizMarkdown(GetString(questionItem, "hint"));
+            String question = GetString(questionItem, "question");
+            String hint = GetString(questionItem, "hint");
             String mcqType = GetString(questionItem, "type");
 
             JsonArray questions = FindAnswerOptions(questionItem);
@@ -82,11 +82,7 @@ public class JsonToTextConverter
                 }
             }
 
-            if (correctCount > 1 || mcqType.Equals("multiple_select", StringComparison.OrdinalIgnoreCase))
-            {
-                // Avoid standalone bracketed instruction lines that break the parser
-                sb.AppendLine("Select all that apply");
-            }
+            // Do not emit standalone instruction lines (they break the downstream parser)
 
             if (!string.IsNullOrWhiteSpace(hint))
                 sb.AppendLine("... " + hint);
@@ -102,8 +98,8 @@ public class JsonToTextConverter
                     {
 
                         Boolean isCorrect = GetBool(jObj, "isCorrect");
-                        String rational = SanitizeQuizMarkdown(GetString(jObj, "rationale"));
-                        String optionText = SanitizeQuizMarkdown(GetString(jObj, "text"));
+                        String rational = GetString(jObj, "rationale");
+                        String optionText = GetString(jObj, "text");
                         String label = c + ") " + optionText;
 
                         if (mcqType.Equals("multiple_select", StringComparison.OrdinalIgnoreCase))
