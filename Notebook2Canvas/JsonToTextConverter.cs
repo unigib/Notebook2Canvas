@@ -3,18 +3,32 @@ using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 // ...existing usings
 
 public class JsonToTextConverter
 {
+    // Parameterless constructor so callers can instantiate easily
+    public JsonToTextConverter() { }
     /// <summary>
     /// Converts a JSON file into a plain text file by extracting all string values.
     /// </summary>
     public StringBuilder Convert(string jsonFilePath)
     {
         if (!File.Exists(jsonFilePath))
-            throw new FileNotFoundException("JSON file not found.", jsonFilePath);
+        {
+            try
+            {
+                MessageBox.Show($"JSON file not found:\n{jsonFilePath}", "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch
+            {
+                throw new FileNotFoundException("JSON file not found.", jsonFilePath);
+            }
+
+            return new StringBuilder();
+        }
 
         string jsonContent = File.ReadAllText(jsonFilePath);
 
@@ -61,6 +75,10 @@ public class JsonToTextConverter
             String hint = GetString(questionItem, "hint");
             String mcqType = GetString(questionItem, "type");
 
+            // Ensure wrapped lines in multiline fields are indented with a tab for Markdown
+            question = IndentWrappedLines(question);
+            hint = IndentWrappedLines(hint);
+
             JsonArray questions = FindAnswerOptions(questionItem);
 
             QuestionCount++;
@@ -100,6 +118,10 @@ public class JsonToTextConverter
                         Boolean isCorrect = GetBool(jObj, "isCorrect");
                         String rational = GetString(jObj, "rationale");
                         String optionText = GetString(jObj, "text");
+
+                        // indent wrapped lines so Markdown keeps the continuation as part of the same block
+                        rational = IndentWrappedLines(rational);
+                        optionText = IndentWrappedLines(optionText);
                         String label = c + ") " + optionText;
 
                         if (mcqType.Equals("multiple_select", StringComparison.OrdinalIgnoreCase))
@@ -252,7 +274,6 @@ public class JsonToTextConverter
 
         return false;
     }
-    
 
     /// <summary>
     /// Recursively extracts all string values from a JSON node.
@@ -285,4 +306,17 @@ public class JsonToTextConverter
     }
 
     // Sanitizer removed — no-op
+
+    private static string IndentWrappedLines(string input)
+    {
+        if (string.IsNullOrEmpty(input))
+            return input;
+
+        // Normalize CRLF to LF then add a tab after every LF so wrapped lines are indented for Markdown
+        string normalized = input.Replace("\r\n", "\n").Replace('\r', '\n');
+        if (!normalized.Contains("\n"))
+            return input;
+
+        return normalized.Replace("\n", "\n\t");
+    }
 }

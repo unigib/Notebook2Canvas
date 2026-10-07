@@ -286,10 +286,34 @@ namespace Notebook2Canvas
 
         private void rjButton3_Click(object sender, EventArgs e)
         {
+            // Ensure a JSON file has been selected and exists before converting
+            if (string.IsNullOrWhiteSpace(jsonImportFile) || !File.Exists(jsonImportFile))
+            {
+                MessageBox.Show(this, "No JSON file selected or file does not exist. Please load a NotebookLM JSON file first.", "Convert Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             var jsonToTextConverter = new JsonToTextConverter();
-            StringBuilder sq = jsonToTextConverter.Convert(jsonImportFile);
+            StringBuilder sq;
+            try
+            {
+                sq = jsonToTextConverter.Convert(jsonImportFile);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, "Failed to convert JSON: " + ex.Message, "Convert Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             richTextBox2.Text = sq.ToString();
-            File.WriteAllText(mdExportFile, sq.ToString());
+            try
+            {
+                File.WriteAllText(mdExportFile, sq.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, "Failed to write MD file: " + ex.Message, "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void label1_Click(object sender, EventArgs e) { }
