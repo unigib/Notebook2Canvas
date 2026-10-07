@@ -1,6 +1,7 @@
 
 # NotebookLM to Canvas
 
+Version: v1.1.0
 
 ## Overview 
 This is a simple desktop application that converts the JSON output from the NotebookLM Exportkit app here: 
@@ -40,6 +41,15 @@ So my workflow is now:
 
 ## How to use 
 
+## New features (v1.1.0)
+
+- Export canvas to PNG directly from the app.
+- Improved JSON-to-text conversion with better error handling and formatting.
+- Drag-and-drop support for .ipynb files onto the main window.
+- Updated UI button styles and accessibility improvements.
+- Added an "installation" release ZIP under the `releases/` folder for easy distribution.
+
+
 ### Export Kit Extension - install
 
 Install the ExportKit Extension - if you dont want to pay you have some free credits 
@@ -76,7 +86,12 @@ Easy to do and easy to create quality quizzes.
 
 ## Installation
 
-I created an installer package - its in the release folder and is called publish.zip.  You should be able to download that, unzip it and then use the setup.exe - since its a .NET app. If that doesnt work you can always install Visual Studio 2026 and install and run it yourself.
+A release ZIP has been created under `releases/Notebook2Canvas-v1.1.0-install.zip`. Download and extract the ZIP to a folder and run `Notebook2Canvas.exe` if an executable is included. If the ZIP does not contain a built executable, build the solution in Visual Studio (Release configuration) and recreate the release ZIP.
+
+From source (Visual Studio):
+1. Open `Notebook2Canvas.slnx` in Visual Studio 2022/2026.
+2. Set configuration to `Release` and build the solution.
+3. The built files will be in `Notebook2Canvas\bin\Release`.
 
 
 
